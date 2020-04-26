@@ -2,15 +2,24 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <title>Harry Potter Quiz</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <!-- Bootstrap File -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <!-- JQuery -->
-  <script src="https://code.jquery.com/jquery.js"></script>
-  <script src="script.js"></script>
+    <meta charset="UTF-8">
+    <title>Harry Potter Quiz</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap File -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="script.js"></script>
 
+    <style>
+        .answer {
+            display: grid;
+        }
+        
+        .btn {
+            width: "100%";
+        }
+    </style>
   
 </head>
 
@@ -24,7 +33,7 @@
                 <p>View Highscores</p>
             </div>
 
-            <div class="col col-sm-6 text-center">
+            <div class="col col-sm-6 text-center border border-dark pb-3">
                 <div>
                     <h2>The Beast in Hogwart's Lake</h2>  
         
@@ -36,8 +45,14 @@
                             <h6 id='questions'>This is a quiz to see how much you know about the Beast in Hogwart's lake.</h6>
                         </div>                           
                         
+                        
                         <div id="answers">
-                            <button type="button" class="btn btn-primary btn-sm text-center" id="start-button">Start Quiz</button>
+                            <button type="button" class="btn btn-primary btn-sm float-center" id="start-button">Start Quiz</button>
+                        </div>
+                        
+                        
+                        <div class="row">
+                            <div class="col col-sm-12 text-left" id="check"></div>                           
                         </div>   
 
                     </div>
@@ -45,7 +60,7 @@
             </div>
 
             <div class="col col-sm-3 text-center">
-                <p id="timeLeft">Time</p>
+                <p id="timeLeft">Time: 30</p>
             </div>
 
         </div>

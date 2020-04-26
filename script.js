@@ -3,11 +3,12 @@ $(document).ready(function() {
 // Variables
 
 var startButton = $('#start-button');
-var time = 60;
+var time = 30;
 var timeLeft = $('#timeLeft');
-var content = $('#content');
 var questions = $('#questions');
 var answers = $('#answers');
+var i = 0;
+var check = $('#check');
 
 // Questions
 
@@ -21,21 +22,21 @@ var questionList = ['What is the beast in Hogwart\'s Lake?',
         
 var answer1List = ['Lochness Monster',
                 '2001',
-                'blue',
-                'docile',
-                'Harry Potter books',];
+                'Blue',
+                'Docile',
+                'Harry Potter Books',];
 
 var answer2List =   ['Hydra',
                 '1523',
-                'rainbow',
-                'violent',
+                'Rainbow',
+                'Violent',
                 'Harry Potter and the Cursed Child',];
 
 var answer3List =   ['Giant Squid',
                 '990',
-                'red',
-                'magical',
-                'Harry Potter movies',];
+                'Red',
+                'Magical',
+                'Harry Potter Movies',];
 
 var answer4List =   ['Charybdis',
                 '1997',
@@ -46,18 +47,17 @@ var answer4List =   ['Charybdis',
 var correctAnswers =    ['Giant Squid',
                         'It can change colors',
                         '990',
-                        'docile',
-                        'Harry Potter books']
+                        'Docile',
+                        'Harry Potter Books']
 
-
-var i = 0;
-
+var answer1 = $('<button>'),
+    answer2 = $('<button>'),
+    answer3 = $('<button>'),
+    answer4 = $('<button>');    
 
 //  Actions
 
 // User clicks start button -> start timer and prompt first question
-
-// Start time / Total seconds
 
 // startButton.on("click", setTime());
 
@@ -65,11 +65,11 @@ startButton.on("click", function (event) {
 
     var interval = setInterval(function() {
         time--;
-        timeLeft.text("Time: " + time + " seconds.");
+        timeLeft.text("Time: " + time);
 
     console.log(time);
 
-    if(time === 0) {s
+    if(time === 0) {
       clearInterval(interval);
     }
 
@@ -91,12 +91,14 @@ function retrieveQuestions () {
     $('#questions').empty();
     $('#answers').empty();
 
-    var answer1 = $('<button>');
-    var answer2 = $('<button>');
-    var answer3 = $('<button>');
-    var answer4 = $('<button>');    
+    answer1.addClass("btn btn-outline-danger btn-sm text-left mb-1 answer");
+    answer2.addClass("btn btn-outline-success btn-sm text-left mb-1 answer");
+    answer3.addClass("btn btn-outline-primary btn-sm text-left mb-1 answer");
+    answer4.addClass("btn btn-outline-warning btn-sm text-left mb-1 answer");
 
     questions.text(questionList[i]);
+    questions.addClass("text-left");
+
     answer1.text(answer1List[i]);
     answer2.text(answer2List[i]);
     answer3.text(answer3List[i]);
@@ -106,13 +108,31 @@ function retrieveQuestions () {
     answers.append(answer2);
     answers.append(answer3);
     answers.append(answer4);
-    
-    
-    answer1.on('click', function () {
+
+    // User clicks an answer button,  
+    $(".answer").on('click', function () {        
+            
+       // Validate answer to see if correct
+        if (correctAnswers.includes($(this).text())) {
+            
+            check.text("Correct");
+            
+        } 
+
+        // If not correct, subtract time from clock
+        else {
+            check.text("Incorrect");
+            time - 5;
+            timeLeft.text("Time: " + time);
+        };
+
+
         i++;
         retrieveQuestions();
+        
     });
     
+
 };
 
 function startQuiz () {    
@@ -120,57 +140,9 @@ function startQuiz () {
     retrieveQuestions();
 
 }    
-    // for (i = 0; i < questionList.length; i++) {
-
-    //     $('#questions').empty();
-    //     $('#answers').empty();
-        
-    //     questions.text(questionList[i]);
-    //     answer1.text(answer1List[i]);
-    //     // answer2.text(answer2List[i]);
-    //     // answer3.text(answer3List[i]);
-    //     // answer4.text(answer4List[i]);
-
-    
-    //     answers.append(answer1);
-    //     // answers.append(answer2);
-    //     // answers.append(answer3);
-    //     // answers.append(answer4);
-
-    //     console.log(answanswer1List[i]);
-    
-    //     answer1.on('click', function () {
-    //         alert(answer1);
-    //         i++;
-    //     });
-
-    // };
-
-    // validateAnswer();
-
-
-
-
-// User clicks an answer button,
-
-// function validateAnswer() {
-
-//     if () {
-        
-//         removeAdditionalTime();
-//     }
-// }
-
-    // Validate answer to see if correct
-
-        // If not correct, subtract time from clock
-
-    // Then move to next question
-
-        // Clear out html 
-
-
-        // Generate new html for next question
+  
+   
+  
 
 // Interval to create a countdown - setInterval (callback, 1000)
 
