@@ -9,6 +9,10 @@ var questions = $('#questions');
 var answers = $('#answers');
 var i = 0;
 var check = $('#check');
+var score = $("<div>");
+var initialForm = $("<form>");
+var initialLabel = $("<label>");
+var initialInput = $("<input type='text' value =''/>");
 
 // Questions
 
@@ -57,39 +61,34 @@ var answer1 = $('<button>'),
 
 //  Actions
 
-// User clicks start button -> start timer and prompt first question
+// User clicks start button -> start timer
 
 // startButton.on("click", setTime());
 
-startButton.on("click", function (event) {
+startButton.on("click", timer);
 
-    var interval = setInterval(function() {
-        time--;
+var interval;
+
+function timer () {
+    interval = setInterval(function () {
+        time = Math.max(time - 1,0);
         timeLeft.text("Time: " + time);
-
-    console.log(time);
-
-    if(time === 0) {
-      clearInterval(interval);
-    }
-
+        
+        if(time === 0 || i === questionList.length) {            
+            clearInterval(interval);
+        }   
     }, 1000);
-
-});
-
-// startButton.on("click", startQuiz());
-
-
-startButton.on("click", startQuiz);
+        
     
-    // Questions
+};
 
+// and prompt first question
+startButton.on("click", startQuiz);
+       
+function startQuiz () {
 
-
-function retrieveQuestions () {
-
-    $('#questions').empty();
-    $('#answers').empty();
+    questions.empty();
+    answers.empty();
 
     answer1.addClass("btn btn-outline-danger btn-sm text-left mb-1 answer");
     answer2.addClass("btn btn-outline-success btn-sm text-left mb-1 answer");
@@ -122,57 +121,55 @@ function retrieveQuestions () {
         // If not correct, subtract time from clock
         else {
             check.text("Incorrect");
-            time - 5;
+            time = Math.max( time - 5,0);
+            console.log(time);
             timeLeft.text("Time: " + time);
         };
 
-
         i++;
-        retrieveQuestions();
+        startQuiz();
         
     });
+
+    endQuiz ();
+};    
     
 
-};
 
-function startQuiz () {    
-
-    retrieveQuestions();
-
-}    
-  
-   
-  
-
-// Interval to create a countdown - setInterval (callback, 1000)
-
-    // Increment elaspedTime
-
-    // Calc current time left by (totalTime - elapsedTime)
-
+    // Game end functionality 
+function endQuiz () {
     // Check if timer = 0
+    if (time === 0 || i === questionList.length) {
 
         // End the game
-    
-    // Update the time left number in the html
+        questions.empty();
+        answers.empty();
+        check.empty();
 
-// Game end functionality
+        questions.text("All done!");
 
-    // Display score
+        // Display score/
+        score.addClass("text-left");
+        score.text("Your score is: " + time);
+        answers.append(score);
 
-    // Provide an input to enter initials
+        // Provide an input to enter initials
+        initialForm.addClass("text-left");
+        answers.append(initialForm);
+        // initialLabel.addClass("text-left");
+        initialLabel.text("Your initials: " + "   ");
+        initialForm.append(initialLabel);
+        initialForm.append(initialInput);
 
-// When user submits initials
+        // When user submits initials
 
-    // Add highscore to local storage
+        // Add highscore to local storage
 
-    // Display list of highscores
+        // Display list of highscores     
+       
 
+    };
 
-// How are different actions going to run
-
-// Click start button to run startGame ()
-
-// Click an answer button to run va
+};
 
 })
