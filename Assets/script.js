@@ -13,6 +13,10 @@ var score = $("<div>");
 var initialForm = $("<form>");
 var initialLabel = $("<label>");
 var initialInput = $("<input type='text' value =''/>");
+var submit = $("<button>");
+var highScore = localStorage.getItem("highScore");
+var displayHighScore = $("<div>");
+
 
 // Questions
 
@@ -150,7 +154,7 @@ function endQuiz () {
 
         // Display score/
         score.addClass("text-left");
-        score.text("Your score is: " + time);
+        score.text("Your final score is: " + time);
         answers.append(score);
 
         // Provide an input to enter initials
@@ -159,13 +163,55 @@ function endQuiz () {
         // initialLabel.addClass("text-left");
         initialLabel.text("Your initials: " + "   ");
         initialForm.append(initialLabel);
+
+        initialInput.attr("id","initials");
         initialForm.append(initialInput);
+        
+        submit.addClass("btn btn-dark btn-sm");
+        submit.text("Submit");
+        initialForm.append(submit);
+      
+        
+        // Display list of highscores   
+        function renderHighScore() {
 
+            if (highScore === null) {
+                return;
+            }
+
+            questions.empty();
+            answers.empty();
+
+            displayHighScore.addClass("text-left");
+            displayHighScore.text(highScore);
+                       
+            questions.text("High Scores");
+            answers.append(displayHighScore);
+
+        };
+                
         // When user submits initials
+        submit.on("click", function(event) {
+            event.preventDefault();
 
-        // Add highscore to local storage
+            var initialText = document.querySelector("#initials").value;
 
-        // Display list of highscores     
+
+            if (initialText === "") {
+                return;
+            }
+            
+            console.log("initials :" + initialText);
+            // Add highscore to local storage
+            localStorage.setItem("highScore", initialText + " - " + time);
+            // initialText.value = "";
+            
+            renderHighScore ();
+            
+        });
+
+        
+          
        
 
     };
